@@ -169,3 +169,4 @@ float IsoTrapezoid::Area() {
 float IsoTrapezoid::Perimeter() {
 	return (topSide + bottomSide + (Side() * 2));
 }
+
