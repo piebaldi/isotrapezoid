@@ -138,7 +138,7 @@ IsoTrapezoid& IsoTrapezoid::operator= (const IsoTrapezoid& r) {
 	return *this;
 }
 
-///@breif overload of == operator
+///@brief overload of == operator
 /// @param r right operanf
 /// @return left operand
 bool IsoTrapezoid::operator == (const IsoTrapezoid& r) {

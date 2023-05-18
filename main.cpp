@@ -1,3 +1,9 @@
+/// @file main.cpp
+///	@brief file main.cpp to implement the 4 class for the polygon 
+///
+///	Details.
+
+
 #include "IsoTrapezoid.h"
 #include "rhombus.h"
 #include "rectangle.h"
@@ -84,7 +90,7 @@ int main() {
 	return 0;
 }
 
-
+/// @brief function to show the menu with the choice for the users
 void Menu() {
 	cout << "Insert 1 to create rectangle: " << endl;
 	cout << "Insert 2 to create rhombus: " << endl;
