@@ -123,21 +123,7 @@ void Rhombus::SetDim(float dH, float dV)
 	SetDiagH(dH);
 	SetDiagV(dV);
 }
-/*
-/// @brief Gets the value of horizontal diagonal
-/// @return The value of horizontal diagonal
-float Rhombus::GetDiagH()
-{
-	return diagH;
-}
 
-/// @brief Gets the value of vertical diagonal
-/// @return The value of vertical diagonal
-float Rhombus::GetDiagV()
-{
-	return diagV;
-}
-*/
 /// @brief Writes the value of both diagonal in two memory locations
 /// @param mem_dH memory location of horizontal diagonal
 /// @param mem_dV memory location of vertical diagonal
@@ -168,14 +154,7 @@ float Rhombus::Perimeter()
 {
 	return Side() * 4;
 }
-/*
-/// @brief Computes the area of a rhombus
-/// @return Area
-float Rhombus::Area()
-{
-	return (diagH * diagV) / 2;
-}
-*/
+
 /// @brief Error message function
 /// @param string Specific string error 
 void Rhombus::ErrorMessage(const char* string) {
@@ -202,8 +181,28 @@ istream& operator >> (istream& in, Rhombus& source)
 {
 	float x;
 	in >> x;
+	//Catches wrong arguments by checking the fail bit of cin ( is 1 when
+	//it tries to input incompatible types, like char and int)
+	if (!cin) {
+		cout << "invalid argument (1 will instead be input)\n";
+		x = 1;
+		cin.clear(); //resets the fail bit
+	}
+	//ignore the possible wrong arguments and newline (uo to 10)
+	cin.ignore(10, '\n');
+
+
 	source.SetDiagH(x);
 	in >> x;
+
+	if (!cin) {
+		cout << "invalid argument (1 will instead be input)\n";
+		x = 1;
+		cin.clear();
+	}
+	cin.ignore(10, '\n');
+
+
 	source.SetDiagV(x);
 	return in;
 }

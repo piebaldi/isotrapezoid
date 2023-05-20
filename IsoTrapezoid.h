@@ -1,6 +1,6 @@
 /// @file IsoTrapezoid.h
 /// @brief Declaration of subclass IsoTrapezoi<d
-/// Isotrapezoid is a sbclass of polygon
+/// Isotrapezoid is a sub-class of polygon
 
 #ifndef ISOTRAPEZOID_H
 #define ISOTRAPEZOID_H
@@ -23,6 +23,7 @@ protected:
 	virtual float Side();
 	virtual float Area();
 	virtual float Perimeter();
+	/// @}
 public:
 	/// @name Constructors/Destructors
 	/// @ {
@@ -40,6 +41,7 @@ public:
 	float GetTopSide() { return topSide; }
 	float GetBottomSide() { return bottomSide; }
 	float GetHeight() { return height; }
+	/// Returns parameters in given memory allocations
 	void GetParams(float& mem_top, float& mem_bottom, float& mem_height);
 	/// @}
 

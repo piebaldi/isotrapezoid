@@ -1,5 +1,5 @@
 /// @file rectangle.cpp
-///	@brief class Rectangle: implementation of the functions
+/// @@brief class Rectangle: implementation of methods
 ///
 ///	Details.
 
@@ -40,6 +40,7 @@ Rectangle::Rectangle(int w, int l) {
 Rectangle::~Rectangle() {
 
 	cout << "Rectangle - destructor" << endl;
+	Reset();
 
 }
 
@@ -67,11 +68,10 @@ void Rectangle::Init(const Rectangle& r) {
 /// @param w width in pixels
 void Rectangle::SetWidth(int w) {
 
-	if (w < 0) {
+	if (w < 0)
 		ErrorMessage("width should be > 0");
-		return;
-	}
-	width = w;
+	else
+		width = w;
 
 }
 
@@ -79,11 +79,10 @@ void Rectangle::SetWidth(int w) {
 /// @param l length in pixels
 void Rectangle::SetLength(int l) {
 
-	if (l < 0) {
+	if (l < 0)
 		ErrorMessage("length should be > 0");
-		return;
-	}
-	length = l;
+	else
+		length = l;
 }
 
 /// @brief set width and length of the object
@@ -95,32 +94,6 @@ void Rectangle::SetDim(int w, int l) {
 	SetLength(w);
 }
 
-/*
-/// @brief set width of the object
-/// @param w width in pixels
-int Rectangle::GetWidth() {
-
-	return width;
-}
-*/
-
-/*
-///@brief Computes the perimeter
-///@return Perimeter
-float Rectangle::Perimeter(){
-
-	return (length + width) * 2;
-}
-*/
-
-/*
-/// @brief Computes the area
-/// @return Area
-float Rectangle::Area(){
-
-	return length*width;
-}
-*/
 ///@brief copy constructor
 Rectangle::Rectangle(const Rectangle& source) {
 
@@ -217,8 +190,27 @@ std::istream& operator >> (std::istream& in, Rectangle& source) {
 
 	float x;
 	in >> x;
+
+	//Catches wrong arguments by checking the fail bit of cin ( is 1 when
+	//it tries to input incompatible types, like char and int)
+	if (!cin) {
+		cout << "invalid argument (1 will instead be input)\n";
+		x = 1;
+		cin.clear(); //resets the fail bit
+	}
+	//ignore the possible wrong arguments and newline (uo to 10)
+	cin.ignore(10, '\n');
+
 	source.SetLength(x);
 	in >> x;
+
+	if (!cin) {
+		cout << "\ninvalid argument (1 will instead be input)\n";
+		x = 1;
+		cin.clear();
+	}
+
+	cin.ignore(10, '\n');
 	source.SetWidth(x);
 	return in;
 }

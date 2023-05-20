@@ -24,6 +24,8 @@ void IsoTrapezoid::CopyInit(const IsoTrapezoid& source) {
 	height = source.height;
 }
 
+/// @brief Calculates side of trapezoid
+/// @return Side of trapezoid 
 float IsoTrapezoid::Side() {
 	float t_base = (bottomSide - topSide) / 2;
 	return sqrt((height * height) + (t_base * t_base));
@@ -32,28 +34,27 @@ float IsoTrapezoid::Side() {
 /// @brief Default constructor
 IsoTrapezoid::IsoTrapezoid() {
 	Init();
-	cout << "Default constructor" << endl;
+	cout << "Isotrapezoid default constructor" << endl;
 }
 
 /// @brief Params constructor
 IsoTrapezoid::IsoTrapezoid(float t, float b, float h) {
 	Init();
 	SetParams(t, b, h);
-	cout << "Param costructor" << endl;
+	cout << "Isotrapezoid Param costructor" << endl;
 }
 
+///@brief copy constructor
+///@param source Object to be copied
+IsoTrapezoid::IsoTrapezoid(const IsoTrapezoid& source) {
+	CopyInit(source);
+	cout << "Isotrapezoid copy constr " << endl;
+}
+
+///@brief Destructor
 IsoTrapezoid::~IsoTrapezoid() {
 	Reset();
-	cout << "iso Destructor" << endl;
-}
-
-/// @brief copy constructor 
-/// @param r reference to the object that should be copied 
-IsoTrapezoid::IsoTrapezoid(const IsoTrapezoid& source) {
-
-	cout << "isotrapezoid - copy constructor" << endl;
-
-	Init();
+	cout << "isotrapezoid Destructor" << endl;
 }
 
 ///@brief Getters for all parameters
@@ -69,11 +70,10 @@ void IsoTrapezoid::GetParams(float& mem_t, float& mem_b, float& mem_h) {
 /// @brief Setter for top side
 /// @param new_t is new value of top side (must be > 0)
 void IsoTrapezoid::SetTopSide(float new_t) {
-	if (new_t <= 0) {
+	if (new_t <= 0)
 		ErrorMessage("top side is less than/ equal to 0");
-		return;
-	}
-	topSide = new_t;
+	else
+		topSide = new_t;
 
 
 }
@@ -81,23 +81,20 @@ void IsoTrapezoid::SetTopSide(float new_t) {
 /// @brief Setter for bottom side
 /// @param new_b is new value of bottom side (must be > 0)
 void IsoTrapezoid::SetBottomSide(float new_b) {
-	if (new_b <= 0) {
+	if (new_b <= 0)
 		ErrorMessage("b side is less than/ equal to 0");
-		return;
-	}
-	bottomSide = new_b;
 
-
+	else
+		bottomSide = new_b;
 }
 
 /// @brief Setter for height
 /// @param new_h is new value of height (must be > 0)
 void IsoTrapezoid::SetHeight(float new_h) {
-	if (new_h <= 0) {
+	if (new_h <= 0)
 		ErrorMessage("height is less than/ equal to 0");
-		return;
-	}
-	height = new_h;
+	else
+		height = new_h;
 }
 
 /// @brief Setter for all params
@@ -133,6 +130,9 @@ void IsoTrapezoid::Dump() {
 	cout << "height: " << height << endl;
 }
 
+/// @brief Overload of assignment operator
+/// @param r right operand
+/// @return left operand
 IsoTrapezoid& IsoTrapezoid::operator= (const IsoTrapezoid& r) {
 	CopyInit(r);
 	return *this;
@@ -147,26 +147,67 @@ bool IsoTrapezoid::operator == (const IsoTrapezoid& r) {
 	return false;
 }
 
+/// @brief overload of << operator
+/// @param r Right operand
+/// @param out Console
+/// @return console type to concatenate
 ostream& operator << (ostream& out, IsoTrapezoid& r) {
 	r.Dump();
 	return out;
 }
 
+/// @brief overload of >> operator
+/// @param r Right operand
+/// @param out Console
+/// @return console type to concatenate
 istream& operator >> (istream& in, IsoTrapezoid& r) {
 	float x;
 	in >> x;
+	//Catches wrong arguments by checking the fail bit of cin ( is 1 when
+	//it tries to input incompatible types, like char and int)
+	if (!cin) {
+		cout << "invalid argument (1 will instead be input)\n";
+		x = 1;
+		cin.clear(); //resets the fail bit
+	}
+	//ignore the possible wrong arguments and newline (uo to 10)
+	cin.ignore(10, '\n');
+
+
 	r.SetTopSide(x);
 	in >> x;
+
+	if (!cin) {
+		cout << "invalid argument (1 will instead be input)\n";
+		x = 1;
+		cin.clear();
+	}
+	cin.ignore(10, '\n');
+
+
 	r.SetBottomSide(x);
 	in >> x;
+
+	if (!cin) {
+		cout << "invalid argument (1 will instead be input)\n";
+		x = 1;
+		cin.clear();
+	}
+	cin.ignore(10, '\n');
+
+
 	r.SetHeight(x);
 	return in;
 }
+
+/// @brief Calculates area
+/// @return Area
 float IsoTrapezoid::Area() {
 	return ((topSide + bottomSide) * height) / 2;
 }
 
+/// @brief Calculates perimeter
+/// @return Perimeter
 float IsoTrapezoid::Perimeter() {
 	return (topSide + bottomSide + (Side() * 2));
 }
-
