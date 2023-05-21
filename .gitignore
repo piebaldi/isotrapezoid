@@ -1,5 +1,10 @@
-test
-Makefile
-html
+*
+!main.cpp
+!*.h
+!*.cpp
+!Doxyfile
+!Makefile
+!README.md
+!.gitignore
 
 
