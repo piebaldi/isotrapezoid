@@ -1,4 +1,4 @@
-IsoTrapezoid
+*IsoTrapezoid*
 3 geometric shapes to be utilized
 
 A graphical user-interface for drawing 3 different polygons
